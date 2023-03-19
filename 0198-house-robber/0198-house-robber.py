@@ -1,18 +1,14 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
         n=len(nums)
-        dp=[-1 for _ in range(n)]
+        dp=[]
+        dp.append(nums[0])
         
-        def func(index):
-            if index>=n:
-                return 0
-            if index==n-1:
-                return nums[n-1]
-            if dp[index]!=-1:
-                return dp[index]
-            pick=nums[index]+func(index+2)
-            notpick=func(index+1)
-            dp[index] = max(pick,notpick)
-            return dp[index]
+        for i in range(1,n):
+            pick=nums[i]
+            if i>1:
+                pick+=dp[i-2]
+            notpick=dp[i-1]
+            dp.append(max(pick,notpick))
         
-        return func(0)
+        return dp[n-1]

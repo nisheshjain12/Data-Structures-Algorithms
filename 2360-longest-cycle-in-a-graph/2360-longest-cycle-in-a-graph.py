@@ -1,22 +1,25 @@
 class Solution:
-  def longestCycle(self, edges: List[int]) -> int:
-    ans = -1  # Initialize the answer to -1
-    time = 1  # Initialize the current time step to 1
-    timeVisited = [0] * len(edges)  # Initialize a list to store the time at which each node was first visited
-
-    # Iterate through each node in the graph
-    for i, edge in enumerate(edges):
-      if timeVisited[i]:  # If the node has already been visited, skip it
-        continue
-      startTime = time  # Record the start time of the current traversal
-      u = i  # Initialize the current node to the ith node
-      # Traverse the graph until the end of the path is reached or a visited node is encountered
-      while u != -1 and not timeVisited[u]:
-        timeVisited[u] = time  # Record the current time step
-        time += 1  # Increment time
-        u = edges[u]  # Move to the next node in the path
-      # If a cycle is found that includes the current node, update the answer
-      if u != -1 and timeVisited[u] >= startTime:
-        ans = max(ans, time - timeVisited[u])
-
-    return ans  # Return the length of the longest cycle found
+    def longestCycle(self, edges: List[int]) -> int:
+        n=len(edges)
+        vis=[False for _ in range(n)]
+        dfsvis=[False for _ in range(n)]
+        dis=[0 for _ in range(n)]
+        
+        def dfs(node,distance): 
+            nonlocal ans
+            vis[node] = True
+            dfsvis[node] = True
+            
+            if(edges[node] != -1):
+                if not vis[edges[node]]:
+                    dis[node] = distance
+                    dfs(edges[node], distance+1)
+                elif dfsvis[edges[node]] :
+                    ans=max(ans, distance-dis[edges[node]] + 1)
+            dfsvis[node] = False
+    
+        ans= -1
+        for i in range(n):
+            if not vis[i]:
+                dfs(i,0)
+        return ans

@@ -13,8 +13,6 @@ class Solution:
             mid=(low+high)//2
             
             while low<=high:
-                # if (arr[mid]*x )== target:
-                #     return mid
                 if (arr[mid]*x)<target:
                     low=mid+1
                 else:
@@ -24,11 +22,9 @@ class Solution:
                 
                     
         for i in range(n):
-            if potions[0] *spells[i] >= success:
-                ans.append(m)
-            else:
-                temp = binary(potions,success,spells[i])
-                ans.append(m-temp)
+            temp = binary(potions,success,spells[i])
+            ans.append(m-temp)
+                
                       
         return ans
             

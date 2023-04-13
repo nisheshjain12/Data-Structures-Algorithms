@@ -1,27 +1,14 @@
 import heapq
 class Solution:
     def maxSubsequence(self, nums: List[int], k: int) -> List[int]:
-        ans=[]
+        temp=[]
         q=[]
         
         for i in range(len(nums)):
-            heapq.heappush(q,(-nums[i] , i))
+            heapq.heappush(q,nums[i])
+            temp.append(nums[i])
             
-        for i in range(k):
-            num,index = heapq.heappop(q)
-            ans.append(index)
-            
-        ans.sort()
+        for i in range(len(nums) - k):
+            temp.remove( heapq.heappop(q) )
         
-        res=[]
-        for index in ans:
-            res.append(nums[index])
-        return res
-        
-            
-        
-        
-        
-        
-            
-    
+        return temp

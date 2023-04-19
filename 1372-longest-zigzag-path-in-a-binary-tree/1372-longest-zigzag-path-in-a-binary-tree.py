@@ -13,16 +13,14 @@ class Solution:
             nonlocal ans
             if not node:
                 return
-            
+            ans=max(ans,length)
             if lvis:
                 dfs(node.right,False,length+1)
                 dfs(node.left,True,1)
-                ans=max(ans,length)
-                
+                             
             if not lvis :
                 dfs(node.left,True,length+1)
                 dfs(node.right,False,1)
-                ans=max(ans,length)
         
         dfs(root,True,0)
         dfs(root,False,0)

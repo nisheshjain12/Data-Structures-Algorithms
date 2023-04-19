@@ -10,7 +10,7 @@ class Solution:
                 return dp[i][buy]
                 
             if buy:
-                profit = max(-prices[i] + recc(i,0) , recc(i+1,1))
+                profit = max(-prices[i] + recc(i+1,0) , recc(i+1,1))
             else:
                 profit = max(prices[i] + recc(i+1,1) , recc(i+1,0))
             dp[i][buy] = profit

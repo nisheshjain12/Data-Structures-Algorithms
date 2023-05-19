@@ -2,25 +2,22 @@
 
 class Solution:
     def isSubsetSum (self, N, arr, summ):
-        dp = [[-1 for i in range(summ+1)] for _ in range(N+1)]
+        dp = [[False for i in range(summ+1)] for _ in range(N+1)]
         
-        def rec(i,target):
-            if target == 0:
-                return True
-            if i==0:
-                return arr[i] == target
-            
-            if dp[i][target] != -1:
-                return dp[i][target]
+        for i in range(N):
+            dp[i][0] = True
+        if arr[0] <= summ:
+            dp[0][arr[0]] = True
+        
+        for i in range(1,N):
+            for j in range(1,summ+1):
+                nottake = dp[i-1][j]
+                take = False
+                if arr[i] <= j:
+                    take = dp[i-1][j-arr[i]]
+                dp[i][j] = take or nottake
+        return dp[N-1][summ]
                 
-            nottake = rec(i-1,target)
-            take = False
-            if arr[i] <= target:
-                take = rec(i-1,target-arr[i])
-            
-            dp[i][target] = take or nottake
-            return dp[i][target]
-        return rec(N-1,summ)
 
 #{ 
  # Driver Code Starts
